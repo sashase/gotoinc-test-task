@@ -6,9 +6,8 @@ import {
 import { InjectModel } from '@nestjs/sequelize';
 import { JwtService } from '@nestjs/jwt';
 import { AuthDto } from './dto/auth.dto';
-import { Tokens } from './types/token.type';
-import { LogoutResponse } from './types/logoutResponse.type';
 import { User } from './user.model';
+import { LogoutResponse, Tokens } from './types';
 import * as argon from 'argon2';
 
 @Injectable()

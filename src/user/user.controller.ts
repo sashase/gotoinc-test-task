@@ -17,19 +17,19 @@ import {
   ApiUnauthorizedResponse,
   ApiUnprocessableEntityResponse,
 } from '@nestjs/swagger';
-import { GetUserId } from '../common/decorators/getUserId.decorator';
-import { GetUserRt } from '../common/decorators/getUserRt.decorator';
-import { Public } from '../common/decorators/public.decorator';
-import { RtGuard } from '../common/guards/rt.guard';
+import { GetUserId, GetUserRt, Public } from '../common/decorators';
+import { RtGuard } from '../common/guards';
 import { AuthDto } from './dto/auth.dto';
+import {
+  Auth,
+  BadRequest,
+  CredentialsIncorrect,
+  SuccessfullyLoggedOut,
+  Tokens,
+  Unauthorized,
+  UserAlreadyExists,
+} from './schemas';
 import { UserService } from './user.service';
-import { Tokens } from './schemas/tokens';
-import { Auth } from './schemas/auth';
-import { UserAlreadyExists } from './schemas/userAlreadyExists';
-import { CredentialsIncorrect } from './schemas/credentialsIncorrect';
-import { BadRequest } from './schemas/badRequest';
-import { Unauthorized } from './schemas/unauthorized';
-import { SuccessfullyLoggedOut } from './schemas/successfullyLoggedOut';
 
 @Controller('user')
 export class UserController {
