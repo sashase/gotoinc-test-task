@@ -25,7 +25,7 @@ describe('TodoController', () => {
 
   describe('create', () => {
     describe('when create is called', () => {
-      const dto: CreateDto = { text: 'do something' };
+      const dto: CreateDto = { text: 'do something', groupName: null };
       const userId: number = 1;
       let todo: Todo;
 
@@ -84,7 +84,7 @@ describe('TodoController', () => {
 
   describe('update', () => {
     describe('when update is called', () => {
-      const dto: UpdateDto = { text: 'updated text', isCompleted: true };
+      const dto: UpdateDto = { text: 'updated text', isCompleted: true, groupName: null };
       const id: number = 1;
       const userId: number = 1;
       let todo: Todo;

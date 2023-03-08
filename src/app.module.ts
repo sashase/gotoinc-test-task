@@ -4,6 +4,9 @@ import { SequelizeModule } from '@nestjs/sequelize';
 import { User } from './user/user.model';
 import { UsersModule } from './user/user.module';
 import { TodoModule } from './todo/todo.module';
+import { GroupModule } from './group/group.module';
+import { Todo } from './todo/todo.model';
+import { Group } from './group/group.model';
 
 @Module({
   imports: [
@@ -17,11 +20,12 @@ import { TodoModule } from './todo/todo.module';
       username: process.env.POSTGRES_USER,
       password: process.env.POSTGRES_PASSWORD,
       database: process.env.POSTGRES_DB,
-      models: [User],
+      models: [User, Todo, Group],
       autoLoadModels: true,
     }),
     UsersModule,
     TodoModule,
+    GroupModule,
   ],
 })
 export class AppModule {}

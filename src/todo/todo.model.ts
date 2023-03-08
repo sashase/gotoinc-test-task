@@ -8,6 +8,7 @@ import {
   Model,
   Table,
 } from 'sequelize-typescript';
+import { Group } from '../group/group.model';
 import { User } from '../user/user.model';
 
 @Table({ tableName: 'todos' })
@@ -45,4 +46,17 @@ export class Todo extends Model<Todo> {
   userId: number;
   @BelongsTo(() => User)
   user: User;
+
+  @ApiProperty({
+    example: 'main group',
+    description: 'todo group',
+  })
+  @Default('Not sorted')
+  @ForeignKey(() => Group)
+  @Column({
+    allowNull: false,
+  })
+  groupName: string;
+  @BelongsTo(() => Group)
+  group: Group;
 }

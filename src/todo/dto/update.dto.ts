@@ -8,4 +8,8 @@ export class UpdateDto {
   @IsBoolean()
   @IsOptional()
   isCompleted: boolean;
+
+  @IsString()
+  @IsOptional()
+  groupName: string;
 }
