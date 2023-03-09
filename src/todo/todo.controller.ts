@@ -18,6 +18,7 @@ import {
   ApiOkResponse,
   ApiOperation,
   ApiParam,
+  ApiUnauthorizedResponse,
 } from '@nestjs/swagger';
 import {
   BadRequest,
@@ -26,7 +27,7 @@ import {
   TodoUpdate,
   UpdatedTodo,
 } from './schemas';
-import { Deleted, Id, NotFound } from '../common/schemas';
+import { Deleted, Id, NotFound, Unauthorized } from '../common/schemas';
 import { GetUserId } from '../common/decorators';
 import { CreateDto, UpdateDto } from './dto';
 import { TodoService } from './todo.service';
@@ -48,6 +49,10 @@ export class TodoController {
     description: 'Empty body',
     type: BadRequest,
   })
+  @ApiUnauthorizedResponse({
+    description: 'Unauthorized',
+    type: Unauthorized,
+  })
   @Post('create')
   @HttpCode(HttpStatus.CREATED)
   create(@Body() dto: CreateDto, @GetUserId() userId: number) {
@@ -68,6 +73,10 @@ export class TodoController {
     description: 'Not Found',
     type: NotFound,
   })
+  @ApiUnauthorizedResponse({
+    description: 'Unauthorized',
+    type: Unauthorized,
+  })
   @HttpCode(HttpStatus.OK)
   @Get(':id')
   findById(@Param() id: number, @GetUserId() userId: number) {
@@ -83,6 +92,10 @@ export class TodoController {
   @ApiNotFoundResponse({
     description: 'Not Found',
     type: NotFound,
+  })
+  @ApiUnauthorizedResponse({
+    description: 'Unauthorized',
+    type: Unauthorized,
   })
   @Get()
   @HttpCode(HttpStatus.OK)
@@ -107,6 +120,10 @@ export class TodoController {
     description: 'Not Found',
     type: NotFound,
   })
+  @ApiUnauthorizedResponse({
+    description: 'Unauthorized',
+    type: Unauthorized,
+  })
   @Patch(':id')
   @HttpCode(HttpStatus.OK)
   update(
@@ -126,6 +143,10 @@ export class TodoController {
   @ApiNotFoundResponse({
     description: 'Not Found',
     type: NotFound,
+  })
+  @ApiUnauthorizedResponse({
+    description: 'Unauthorized',
+    type: Unauthorized,
   })
   @Delete(':id')
   @HttpCode(HttpStatus.OK)

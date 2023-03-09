@@ -34,7 +34,7 @@ export class TodoService {
     const todo: Todo[] = await this.todoRepository.findAll({
       where: { userId },
     });
-    if (!todo) throw new NotFoundException();
+    if (!todo[0]) throw new NotFoundException();
     return todo;
   }
 

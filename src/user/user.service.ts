@@ -58,7 +58,6 @@ export class UserService {
         username: dto.username,
         hash,
       });
-      console.log(user);
 
       const tokens = await this.getTokens(user.id, user.username);
       await this.saveRt(user.id, tokens.refresh_token);
