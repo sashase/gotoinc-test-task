@@ -17,18 +17,18 @@ import {
   ApiUnauthorizedResponse,
   ApiUnprocessableEntityResponse,
 } from '@nestjs/swagger';
-import { GetUserId, GetUserRt, Public } from '../common/decorators';
-import { RtGuard } from '../common/guards';
-import { AuthDto } from './dto/auth.dto';
 import {
   Auth,
   BadRequest,
   CredentialsIncorrect,
   SuccessfullyLoggedOut,
   Tokens,
-  Unauthorized,
   UserAlreadyExists,
 } from './schemas';
+import { Unauthorized } from '../common/schemas';
+import { GetUserId, GetUserRt, Public } from '../common/decorators';
+import { RtGuard } from '../common/guards';
+import { AuthDto } from './dto/auth.dto';
 import { UserService } from './user.service';
 
 @Controller('user')
@@ -40,17 +40,14 @@ export class UserController {
     type: Auth,
   })
   @ApiCreatedResponse({
-    status: 201,
     description: 'Your access and refresh tokens',
     type: Tokens,
   })
   @ApiBadRequestResponse({
-    status: 400,
     description: 'Empty body',
     type: BadRequest,
   })
   @ApiUnprocessableEntityResponse({
-    status: 422,
     description: 'User with this username already exists',
     type: UserAlreadyExists,
   })
@@ -66,17 +63,14 @@ export class UserController {
     type: Auth,
   })
   @ApiOkResponse({
-    status: 200,
     description: 'Your access and refresh tokens',
     type: Tokens,
   })
   @ApiBadRequestResponse({
-    status: 400,
     description: 'Empty Request',
     type: BadRequest,
   })
   @ApiUnauthorizedResponse({
-    status: 401,
     description: 'Credentials incorrect',
     type: CredentialsIncorrect,
   })
@@ -114,7 +108,6 @@ export class UserController {
   })
   @ApiBearerAuth('Authorization')
   @ApiOkResponse({
-    status: 200,
     description: 'Your access and refresh tokens',
     type: Tokens,
   })

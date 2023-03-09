@@ -14,24 +14,21 @@ import {
   ApiBearerAuth,
   ApiBody,
   ApiCreatedResponse,
-  ApiFoundResponse,
   ApiNotFoundResponse,
   ApiOkResponse,
   ApiOperation,
   ApiParam,
 } from '@nestjs/swagger';
-import { GetUserId } from '../common/decorators';
-import { CreateDto, UpdateDto } from './dto';
 import {
   BadRequest,
-  Deleted,
-  Id,
-  NotFound,
   Todo,
   TodoCreate,
   TodoUpdate,
   UpdatedTodo,
 } from './schemas';
+import { Deleted, Id, NotFound } from '../common/schemas';
+import { GetUserId } from '../common/decorators';
+import { CreateDto, UpdateDto } from './dto';
 import { TodoService } from './todo.service';
 
 @Controller('todo')
@@ -44,12 +41,10 @@ export class TodoController {
   })
   @ApiBearerAuth('Authorization')
   @ApiCreatedResponse({
-    status: 201,
     description: 'Created todo',
     type: Todo,
   })
   @ApiBadRequestResponse({
-    status: 400,
     description: 'Empty body',
     type: BadRequest,
   })
@@ -65,17 +60,15 @@ export class TodoController {
     type: Id,
   })
   @ApiBearerAuth('Authorization')
-  @ApiFoundResponse({
-    status: 302,
+  @ApiOkResponse({
     description: 'Founded TODO',
     type: Todo,
   })
   @ApiNotFoundResponse({
-    status: 404,
     description: 'Not Found',
     type: NotFound,
   })
-  @HttpCode(HttpStatus.FOUND)
+  @HttpCode(HttpStatus.OK)
   @Get(':id')
   findById(@Param() id: number, @GetUserId() userId: number) {
     return this.todoService.findById(id, userId);
@@ -83,18 +76,16 @@ export class TodoController {
 
   @ApiOperation({ summary: 'Find all your TODOs' })
   @ApiBearerAuth('Authorization')
-  @ApiFoundResponse({
-    status: 302,
+  @ApiOkResponse({
     description: 'Founded TODOs',
     type: Todo,
   })
   @ApiNotFoundResponse({
-    status: 404,
     description: 'Not Found',
     type: NotFound,
   })
   @Get()
-  @HttpCode(HttpStatus.FOUND)
+  @HttpCode(HttpStatus.OK)
   findAll(@GetUserId() userId: number) {
     return this.todoService.findAll(userId);
   }
@@ -109,12 +100,10 @@ export class TodoController {
   })
   @ApiBearerAuth('Authorization')
   @ApiOkResponse({
-    status: 200,
     description: 'Updated TODO',
     type: UpdatedTodo,
   })
   @ApiNotFoundResponse({
-    status: 404,
     description: 'Not Found',
     type: NotFound,
   })
@@ -131,12 +120,10 @@ export class TodoController {
   @ApiOperation({ summary: 'Delete TODO' })
   @ApiBearerAuth('Authorization')
   @ApiOkResponse({
-    status: 200,
     description: 'Todo deleted',
     type: Deleted,
   })
   @ApiNotFoundResponse({
-    status: 404,
     description: 'Not Found',
     type: NotFound,
   })
